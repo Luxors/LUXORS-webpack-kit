@@ -1,0 +1,23 @@
+{
+  "name": "luxors-webpack-kit",
+  "version": "1.0.0",
+  "description": "Webpack start template",
+  "main": "index.js",
+  "author": "Yaroslav V. Derkach",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-loader": "^8.0.4",
+    "path": "^0.12.7",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "scripts": {
+    "serve": "webpack-dev-server --mode production --open",
+    "build": "webpack --mode production"
+  }
+}
