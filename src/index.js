@@ -1,1 +1,2 @@
-console.log(2);
+import './js/common'
+import './scss/main.scss'

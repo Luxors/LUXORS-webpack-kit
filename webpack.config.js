@@ -1,24 +1,38 @@
-let path = require('path');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let config = {
-	entry: './src/index.js',
+const config = {
+	entry: {
+		common:	'./src/index.js'
+	},
 	output: {
+		filename: '[name].js',
 		path: path.resolve(__dirname, './dist'),
-		filename: 'main.js',
 		publicPath: 'dist/'
 	},
 	devServer: {
 		overlay: true,
-		open: 'chrome'
+		port: 9000,
+		open: 'Chrome'
 	},
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader'
-			}
+				loader: 'babel-loader',
+				exclude: '/node_modules/'
+			},
+			{ 
+				test: /\.pug$/,
+				use: ['pug-loader']
+			},
 		]
-	}
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './src/index.pug'
+		}),
+	]
 }
 
 module.exports = (env, options) => {
