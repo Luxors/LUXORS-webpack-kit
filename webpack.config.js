@@ -1,14 +1,17 @@
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const config = {
 	entry: {
-		common:	'./src/index.js'
+		main:	'./src/index.js'
+		// 'js/scripts.js': './src/js/scripts.js',
+		// 'css/main': './src/scss/main.scss'
 	},
 	output: {
-		filename: '[name].js',
-		path: path.resolve(__dirname, './dist')
+		filename: 'js/[name].js',
+		path: path.resolve(__dirname, './public')
 	},
 	devServer: {
 		overlay: true,
@@ -19,11 +22,13 @@ const config = {
 		rules: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
-				exclude: '/node_modules/'
+				exclude: '/node_modules/',
+				use: {
+          loader: "babel-loader"
+        }
 			},
 			{
-				test: /\.scss$/,
+				test: /\.(css|scss)$/,
 				use: [
 					'style-loader',
 					MiniCssExtractPlugin.loader,
@@ -52,7 +57,8 @@ const config = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'images/[name][hash].[ext]'
+							name: 'images/[name].[ext]',
+							outputPath: 'img/'
 						}
 					}, 
 					{
@@ -81,12 +87,26 @@ const config = {
 		new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name].css",
+      filename: "css/[name].css",
       chunkFilename: "[id].css"
     }),
 		new HtmlWebpackPlugin({
 			template: './src/index.pug'
 		}),
+		new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'src/fonts'),
+        to: path.resolve(__dirname, 'public/fonts'),
+      },
+      {
+        from: path.resolve(__dirname, 'src/img'),
+        to: path.resolve(__dirname, 'public/img'),
+      },
+      {
+        from: path.resolve(__dirname, 'src/favicon.ico'),
+        to: path.resolve(__dirname, 'public/'),
+      },
+    ])
 	]
 }
 
