@@ -1,18 +1,4 @@
-.wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center; 
-	width: 500px;
-	height: 500px;
-	background-color: blue;
-}
-
-h1 {
-	color: red;
-}
-h2 {
-	color: red;
-}
-h3 {
-	color: red;
-}
+@import "utils/all";
+@import "shared/all";
+@import "layouts/all";
+@import "components/all";
