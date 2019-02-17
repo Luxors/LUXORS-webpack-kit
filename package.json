@@ -14,8 +14,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development",
-    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --config ./webpack.dev.config.js",
+    "build": "webpack --config ./webpack.build.config.js",
     "fix": "yarn eslint:--fix && yarn stylelint:--fix"
   },
   "devDependencies": {
@@ -46,6 +46,7 @@
     "stylelint-scss": "^3.5.3",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.2.1"
   }
 }

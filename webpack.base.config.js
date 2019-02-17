@@ -3,15 +3,26 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const config = {
+
+const PATHS = {
+  src: path.join(__dirname, './src'),
+  dist: path.join(__dirname, './public'),
+  // assets: 'assets/'
+}
+
+module.exports = {
+
+	externals: {
+    paths: PATHS
+	},
+	
 	entry: {
-		main:	'./src/index.js'
-		// 'js/scripts.js': './src/js/scripts.js',
-		// 'css/main': './src/scss/main.scss'
+		app:	PATHS.src
 	},
 	output: {
-		filename: 'js/[name].js',
-		path: path.resolve(__dirname, './public')
+		filename: `js/[name].js`,
+		path: PATHS.dist,
+		publicPath: '/'
 	},
 	devServer: {
 		overlay: true,
@@ -57,7 +68,7 @@ const config = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'images/[name].[ext]',
+							name: 'img/[name].[ext]',
 							outputPath: 'img/'
 						}
 					}, 
@@ -85,35 +96,39 @@ const config = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: "css/[name].css",
+      filename: `css/[name].css`,
       chunkFilename: "[id].css"
     }),
 		new HtmlWebpackPlugin({
-			template: './src/index.pug'
+			hash: false,
+			template: `${PATHS.src}/index.pug`,
+			// filename: './index.pug'
 		}),
 		new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, 'src/fonts'),
-        to: path.resolve(__dirname, 'public/fonts'),
+        from: `${PATHS.src}/fonts`,
+        to: `${PATHS.dist}/fonts`
       },
       {
-        from: path.resolve(__dirname, 'src/img'),
-        to: path.resolve(__dirname, 'public/img'),
+        from: `${PATHS.src}/img`,
+        to: `${PATHS.dist}/img`
       },
       {
-        from: path.resolve(__dirname, 'src/favicon.ico'),
-        to: path.resolve(__dirname, 'public/'),
+        from: `${PATHS.src}/static`,
+        to: '',
       },
     ])
 	]
 }
 
-module.exports = (env, options) => {
-	let production = options.mode ==="production";
+// module.exports = (env, options) => {
+// 	let production = options.mode ==="production";
 
-	config.devtool = production ? false : 'eval-soursemap';
+// 	config.devtool = production ? false : 'eval-soursemap';
 
-	return config;
-}
+// 	return config;
+// }
+
+// module.exports = () => {
+// 	return config;
+// }
