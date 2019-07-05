@@ -68,8 +68,8 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'img/[name].[ext]',
-							outputPath: 'img/'
+							name: 'images/[name].[ext]',
+							outputPath: 'images/'
 						}
 					}, 
 					{
@@ -110,8 +110,8 @@ module.exports = {
         to: `${PATHS.dist}/fonts`
       },
       {
-        from: `${PATHS.src}/img`,
-        to: `${PATHS.dist}/img`
+        from: `${PATHS.src}/images`,
+        to: `${PATHS.dist}/images`
       },
       {
         from: `${PATHS.src}/static`,
